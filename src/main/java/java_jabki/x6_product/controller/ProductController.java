@@ -37,7 +37,7 @@ public class ProductController {
         return itemLogic.updateItem(item);
     }
 
-    @GetMapping("/check/{id}")
+    @GetMapping("/item/{id}")
     @Operation(summary = "Наличие товара")
     public ResponseEntity<ApiStatus> checkById(@PathVariable("id") String id) {
         Product item = itemLogic.getById(Integer.parseInt(id));

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 @AllArgsConstructor
 public class ProductRepository {
     private static final String INSERT = """
-            INSERT INTO x6_product.product (name,price,description,typ)
-            VALUES (:name, :price, :description, :type)
+            INSERT INTO x6_product.product(name,price,description,type)
+            VALUES (:name,:price,:description,:type)
             RETURNING *;
             """;
     private static final String UPDATE = """

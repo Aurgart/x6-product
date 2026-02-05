@@ -33,7 +33,7 @@ public class ProductService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    @CachePut(value = "product", key ="#item.id()")
+    @CachePut(value = "product", key ="#item.getId()")
     public Product updateItem(final Product item){
         return items.update(item);
     }

@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @Builder
-public class Product {
+public class Product implements Serializable {
     private int id;
     private String name;
     private Float price;
