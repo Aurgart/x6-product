@@ -26,7 +26,7 @@ class X6ProductTests {
 	private ProductService itemService;
 
 	@Test
-	void createUserTest(){
+	void createProductTest(){
 		final Product item = testItem();
 		Assertions.assertDoesNotThrow(() -> {
 			itemService.addItem(item);
