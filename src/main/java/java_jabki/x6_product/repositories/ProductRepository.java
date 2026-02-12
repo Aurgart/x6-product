@@ -1,6 +1,6 @@
 package java_jabki.x6_product.repositories;
 
-import java_jabki.x6_product.mappers.ProductMapper;
+import java_jabki.x6_product.repositories.mapper.ProductMapper;
 import java_jabki.x6_product.model.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -35,10 +35,10 @@ public class ProductRepository {
     private final NamedParameterJdbcTemplate jbcTemplate;
 
     public Product insert(final Product item){
-        return jbcTemplate.queryForObject(INSERT, ProductParamForSql(item), prodMapp);
+        return jbcTemplate.queryForObject(INSERT, productParamForSql(item), prodMapp);
     }
     public Product update(final Product item) {
-        return jbcTemplate.queryForObject(UPDATE, ProductParamForSql(item), prodMapp);
+        return jbcTemplate.queryForObject(UPDATE, productParamForSql(item), prodMapp);
     }
 
     public void delete(final int id) {
@@ -50,7 +50,7 @@ public class ProductRepository {
 
     }
 
-    private MapSqlParameterSource ProductParamForSql(final Product item){
+    private MapSqlParameterSource productParamForSql(final Product item){
         final MapSqlParameterSource params = new MapSqlParameterSource();
 
         params.addValue("id", item.getId());
@@ -60,7 +60,5 @@ public class ProductRepository {
         params.addValue("type", item.getType());
 
         return params;
-
     }
-
 }

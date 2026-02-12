@@ -1,4 +1,4 @@
-package java_jabki.x6_product.mappers;
+package java_jabki.x6_product.repositories.mapper;
 
 import java_jabki.x6_product.model.Product;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,9 +13,9 @@ public class ProductMapper implements RowMapper<Product> {
     @Override
     public Product mapRow(ResultSet rs, int rowNum) throws SQLException{
         return Product.builder()
-                .id(rs.getInt("id"))
+                .id(rs.getLong("id"))
                 .name(rs.getString("name"))
-                .price(rs.getFloat("price"))
+                .price(rs.getBigDecimal("price"))
                 .description(rs.getString("description"))
                 .type(rs.getString("type"))
                 .build();

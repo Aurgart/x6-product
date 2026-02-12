@@ -16,31 +16,31 @@ import java.util.List;
 @RequestMapping("/api/v1/product")
 @Tag(name = "Товары")
 public class ProductController {
-    private final ProductService itemLogic;
+    private final ProductService productService;
 
 
     @PostMapping
     @Operation(summary = "Создать товар")
     public Product create(@RequestBody Product item) {
-        return itemLogic.addItem(item);
+        return productService.addItem(item);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Инфо по товару")
-    public Product getById(@PathVariable("id") String id) {
-        return itemLogic.getById(Integer.parseInt(id));
+    public Product getById(@PathVariable("id") Integer id) {
+        return productService.getById(id);
     }
 
     @PatchMapping
     @Operation(summary = "Обновление товара.")
     public Product update(@RequestBody Product item) {
-        return itemLogic.updateItem(item);
+        return productService.updateItem(item);
     }
 
     @GetMapping("/item/{id}")
     @Operation(summary = "Наличие товара")
-    public ResponseEntity<ApiStatus> checkById(@PathVariable("id") String id) {
-        Product item = itemLogic.getById(Integer.parseInt(id));
+    public ResponseEntity<ApiStatus> checkById(@PathVariable("id") Integer id) {
+        Product item = productService.getById(id);
         if (item != null) {
             return ResponseEntity.ok().body(new ApiStatus(true, "Product " + item.getName() + " exists!"));
         } else {
@@ -51,7 +51,7 @@ public class ProductController {
     @GetMapping("/check/id_list")
     @Operation(summary = "Наличие товаров")
     public ResponseEntity<ApiStatus> existsById(@RequestBody List<Integer> ids) {
-        if (itemLogic.checkIds(ids)) {
+        if (productService.checkProductsExistsByIdList(ids)) {
             return ResponseEntity.ok().body(new ApiStatus(true, "Products with ids:  " + ids + " exists!"));
         } else {
             return ResponseEntity.notFound().build();

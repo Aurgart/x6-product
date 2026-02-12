@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,10 +21,10 @@ public class ProductService {
     private final ProductRepository items;
 
     @Transactional(rollbackFor = Exception.class)
-    public Product addItem(Product item){
-        validateItem(item.getName(),item.getPrice());
-        items.insert(item);
-        return item;
+    public Product addItem(Product product){
+        validateItem(product);
+        items.insert(product);
+        return product;
     }
 
     @Transactional(readOnly = true)
@@ -44,8 +45,8 @@ public class ProductService {
         items.delete(id);
     }
 
-    public Boolean checkIds(final List<Integer> ids){
-        for( Integer id : ids){
+    public Boolean checkProductsExistsByIdList(final List<Integer> ids){
+        for(Integer id : ids){
             Product item = getById(id);
             if (item == null) {
                 return false;
@@ -54,12 +55,12 @@ public class ProductService {
         return true;
     }
 
-    private void validateItem(String name, Float price){
-        if (!StringUtils.hasText(name)) {
+    private void validateItem(Product product){
+        if (!StringUtils.hasText(product.getName())) {
             throw new ProductException("Item should have a name!");
         }
-        if (price <= 0) {
-            throw new ProductException("Price cannot be negative!");
+        if (product.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new ProductException("Price cannot be negative or 0!");
         }
     }
 }

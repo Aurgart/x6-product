@@ -5,14 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
 @Builder
 public class Product implements Serializable {
-    private int id;
+    private Long id;
     private String name;
-    private Float price;
+    private BigDecimal price;
     private String description;
     private String type;
 }
